@@ -4,12 +4,12 @@ import { sequelize } from '../connections/mysql'
 class Product extends Model {}
 
 Product.init({
-  product_id: {
+  id: {
     type: DataTypes.CHAR(36),
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
-  product_name: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false
   },
