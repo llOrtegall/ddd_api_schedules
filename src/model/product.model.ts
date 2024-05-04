@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from '../connections/mysql'
 
-class Product extends Model {}
+class Product extends Model { }
 
 Product.init({
   id: {
@@ -17,10 +17,10 @@ Product.init({
     type: DataTypes.FLOAT(10, 2),
     allowNull: false
   },
-  is_stock:{
+  is_stock: {
     type: DataTypes.BOOLEAN,
   }
-}, {sequelize, modelName: 'product'})
+}, { sequelize, modelName: 'product' })
 
 
 export { Product }
