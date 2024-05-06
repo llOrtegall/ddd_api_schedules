@@ -26,12 +26,14 @@ export async function getProductById(req: Request, res: Response) {
 }
 
 export async function createProduct(req: Request, res: Response) {
+  const { name, price, is_stock } = req.body
+
   try {
     await Product.sync();
     const createProduct = await Product.create({
-      name: faker.commerce.productName(),
-      price: faker.commerce.price(),
-      is_stock: faker.datatype.boolean()
+      name: name,
+      price: price,
+      is_stock: is_stock
     })
     return res.status(201).json({ message: 'Product Created Succesfield', product: createProduct })
   } catch (error) {
