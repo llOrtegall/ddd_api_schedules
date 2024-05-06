@@ -1,4 +1,5 @@
 import { Product } from "../model/product.model";
+import { ValidateProduct } from "../schemas/product.schema";
 import { Request, Response } from "express";
 import { faker } from "@faker-js/faker";
 
@@ -26,15 +27,15 @@ export async function getProductById(req: Request, res: Response) {
 }
 
 export async function createProduct(req: Request, res: Response) {
-  const { name, price, is_stock } = req.body
+  const validateProduct = await ValidateProduct(req.body)
+
+  if (validateProduct.success === false) {
+    return res.status(400).json({ message: validateProduct.error })
+  }
 
   try {
     await Product.sync();
-    const createProduct = await Product.create({
-      name: name,
-      price: price,
-      is_stock: is_stock
-    })
+    const createProduct = await Product.create(validateProduct.data)
     return res.status(201).json({ message: 'Product Created Succesfield', product: createProduct })
   } catch (error) {
     console.log(error);
